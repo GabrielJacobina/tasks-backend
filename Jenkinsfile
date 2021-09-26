@@ -42,6 +42,15 @@ pipeline {
                 }
              }
          }
+         stage ('Deploy Frontend') {
+             steps {
+                 dir('frontend') {
+                     git credentialsId: '427a78da-15e8-4f69-98a3-cbbf8b9885c1', url: 'https://github.com/GabrielJacobina/tasks-frontend'
+                     sh 'mvn clean package'
+                     deploy adapters: [tomcat8(credentialsId: '3daf4377-1981-4a39-89c5-a8495c0f6534', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                 }
+             }
+         }
     }
 
 
