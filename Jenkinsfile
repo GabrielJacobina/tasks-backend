@@ -51,6 +51,14 @@ pipeline {
                  }
              }
          }
+         stage ('Functional Test') {
+             steps {
+                 dir('functional-test') {
+                     git credentialsId: '427a78da-15e8-4f69-98a3-cbbf8b9885c1', url: 'https://github.com/GabrielJacobina/tasks-functional-test'
+                     sh 'mvn test'
+                 }
+             }
+         }
     }
 
 
